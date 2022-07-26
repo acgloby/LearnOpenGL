@@ -1,1 +1,2 @@
 *.h linguist-language=C++
+*.html linguist-language=C++
