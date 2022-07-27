@@ -37,8 +37,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="vertexSource.glsl" />
-    <Text Include="fragmentSource.glsl" />
+    <Text Include="vertexSource.vert" />
+    <Text Include="fragmentSource.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Image\awesomeface.png">
