@@ -163,13 +163,18 @@
   <ItemGroup>
     <Text Include="fragmentSource.frag" />
     <Text Include="vertexSource.vert" />
+    <Text Include="lightFragment.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Image\awesomeface.png" />
     <Image Include="Image\bg.png" />
     <Image Include="Image\container.jpg" />
+    <Image Include="Image\container2.png" />
     <Image Include="Image\head.jpg" />
     <Image Include="Image\head.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lightVertex.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

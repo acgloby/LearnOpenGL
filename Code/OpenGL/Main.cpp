@@ -23,47 +23,48 @@ unsigned int LoadImageToGPU(const char* filename, GLint internalFormat, GLenum f
 
 #pragma region ModelData
 float vertices[] = {
-	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-	 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+	// positions          // normals           // texture coords
+	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+	 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
+	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+	-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
 
-	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-	 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-	 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+	 0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+	-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
 
-	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-	-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+	-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+	-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-	 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-	 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+	 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+	 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-	 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+	 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
 
-	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+	 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
 };
 #pragma endregion
 
@@ -98,6 +99,9 @@ Camera* MainCamera = new Camera(cameraPos, cameraUp, yaw, pitch);;
 
 float deltaTime = 0.0f; // 当前帧与上一帧的时间差
 float lastFrame = 0.0f; // 上一帧的时间
+
+glm::vec3 lightPos = glm::vec3(1.2f, 1.0f, 5.0f);
+glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 
 #pragma region 输入事件
 /// <summary>
@@ -135,8 +139,8 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 		firstMouse = false;
 	}
 
-	float xOffset = lastX - xpos;
-	float yOffset = ypos - lastY;
+	float xOffset = xpos -lastX;
+	float yOffset = lastY - ypos;
 	lastX = xpos;
 	lastY = ypos;
 	MainCamera->ProcessMouseMovement(xOffset, yOffset, true);
@@ -224,6 +228,7 @@ int main()
 
 	#pragma region 创建Shader
 	Shader* shaderProgram = new Shader("vertexSource.vert", "fragmentSource.frag");
+	Shader* lightShaderProgram = new Shader("lightVertex.vert","lightFragment.frag");
 	#pragma endregion
 
 	#pragma region 顶点缓存
@@ -231,23 +236,33 @@ int main()
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
-
 	unsigned int VBO;
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	unsigned int EBO;
-	glGenBuffers(1, &EBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	//unsigned int EBO;
+	//glGenBuffers(1, &EBO);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	//设置顶点属性指针
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 	
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(2);
+
+	glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(3);
+
+	unsigned int LIGHT_VAO;
+	glGenVertexArrays(1, &LIGHT_VAO);
+	glBindVertexArray(LIGHT_VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	//设置顶点属性指针
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
 	#pragma endregion
 
 	#pragma region 加载Texture
@@ -258,7 +273,7 @@ int main()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	
 	unsigned int TexBufferA = LoadImageToGPU("Image/head.jpg", GL_RGB, GL_RGB, 0);
-	unsigned int TexBufferB = LoadImageToGPU("Image/bg.png", GL_RGBA, GL_RGBA, 1);
+	unsigned int TexBufferB = LoadImageToGPU("Image/container2.png", GL_RGBA, GL_RGBA, 1);
 	#pragma endregion
 
 	while (!glfwWindowShouldClose(window))
@@ -271,44 +286,65 @@ int main()
 		//Input Process
 		processInput(window);
 
-		glClearColor(1, 0.5f, 0.5f, 0);
+		//glClearColor(1, 0.5f, 0.5f, 0);
+		glClearColor(0, 0, 0, 0);
 		//Clear Buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-		for (unsigned int i = 0; i < 1; i++)
+		// Set MVP
+		glm::mat4 model = glm::mat4(1);
+		glm::mat4 view = glm::mat4(1);
+		glm::mat4 projection = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+		if (MainCamera != nullptr)
 		{
-			// Set MVP
-			glm::mat4 model = glm::mat4(1);
-			glm::mat4 view = glm::mat4(1);
-			glm::mat4 projection = glm::mat4(1);
-			model = glm::translate(model, cubePositions[i]);
-			model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
-			if (MainCamera != nullptr)
-			{
-				view = MainCamera->GetViewMatrix();
-				projection = glm::perspective(glm::radians(MainCamera->Fov), WIDTH / HEIGHT, 0.1f, 100.0f);
-			}
-
-			//Set Shader
-			shaderProgram->use();
-
-			//Set Texture
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, TexBufferA);
-			glActiveTexture(GL_TEXTURE1);
-			glBindTexture(GL_TEXTURE_2D, TexBufferB);
-
-			shaderProgram->setInt("texture1", 0);
-			shaderProgram->setInt("texture2", 1);
-			shaderProgram->setMatrix4fv("model", glm::value_ptr(model));
-			shaderProgram->setMatrix4fv("view", glm::value_ptr(view));
-			shaderProgram->setMatrix4fv("projection", glm::value_ptr(projection));
-			//Set Model
-			glBindVertexArray(VAO);
-
-			//Drawcall
-			glDrawArrays(GL_TRIANGLES, 0, 36);
+			view = MainCamera->GetViewMatrix();
+			projection = glm::perspective(glm::radians(MainCamera->Fov), WIDTH / HEIGHT, 0.1f, 100.0f);
 		}
+
+		//Set Shader
+		shaderProgram->use();
+
+		//Set Texture
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, TexBufferA);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, TexBufferB);
+
+		shaderProgram->setInt("texture1", 0);
+		shaderProgram->setInt("texture2", 1);
+		shaderProgram->setMatrix4fv("model", glm::value_ptr(model));
+		shaderProgram->setMatrix4fv("view", glm::value_ptr(view));
+		shaderProgram->setMatrix4fv("projection", glm::value_ptr(projection));
+	
+		shaderProgram->setVec3("objectColor", 1.0f, 0.5f, 0.31f);
+		shaderProgram->setVec3("lightColor", lightColor);
+		shaderProgram->setVec3("lightPos", lightPos);
+		if (MainCamera != nullptr)
+		{
+			shaderProgram->setVec3("viewPos", MainCamera->Position);
+		}
+		//Set Model
+		glBindVertexArray(VAO);
+		//Drawcall
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
+		lightShaderProgram->use();
+		model = glm::mat4(1);
+		model = glm::translate(model, lightPos);
+		model = glm::scale(model, glm::vec3(0.2f));
+		lightShaderProgram->setMatrix4fv("model", glm::value_ptr(model));
+		lightShaderProgram->setMatrix4fv("view", glm::value_ptr(view));
+		lightShaderProgram->setMatrix4fv("projection", glm::value_ptr(projection));
+		lightShaderProgram->setVec3("lightColor", lightColor);
+		//Set Model
+		glBindVertexArray(LIGHT_VAO);
+		//Drawcall
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
 		glfwSwapBuffers(window);
 		glfwPollEvents(); //接受输入事件
 	}

@@ -38,9 +38,9 @@ void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
 	if (direction == BACKWARD)
 		Position -= Front * velocity;
 	if (direction == LEFT)
-		Position += Right * velocity;
-	if (direction == RIGHT)
 		Position -= Right * velocity;
+	if (direction == RIGHT)
+		Position += Right * velocity;
 }
 
 void Camera::ProcessMouseScroll(float yoffset)
@@ -74,10 +74,10 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool constrainPi
 void Camera::UpdateCameraVectors()
 {
 	glm::vec3 front = glm::vec3(0);
-	front.x = glm::cos(glm::radians(Yaw)) * glm::cos(glm::radians(Pitch));
-	front.y = glm::sin(glm::radians(Pitch));
-	front.z = glm::sin(glm::radians(Yaw)) * glm::cos(glm::radians(Pitch));
+	front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+	front.y = sin(glm::radians(Pitch));
+	front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
 	Front = glm::normalize(front);
 	Right = glm::normalize(glm::cross(Front, WorldUp));
-	Up = glm::normalize(glm::cross(Front, Right));
+	Up = glm::normalize(glm::cross(Right, Front));
 }
