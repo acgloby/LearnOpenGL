@@ -170,6 +170,7 @@
     <Image Include="Image\bg.png" />
     <Image Include="Image\container.jpg" />
     <Image Include="Image\container2.png" />
+    <Image Include="Image\container2_specular.png" />
     <Image Include="Image\head.jpg" />
     <Image Include="Image\head.png" />
   </ItemGroup>

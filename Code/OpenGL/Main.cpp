@@ -100,8 +100,8 @@ Camera* MainCamera = new Camera(cameraPos, cameraUp, yaw, pitch);;
 float deltaTime = 0.0f; // 当前帧与上一帧的时间差
 float lastFrame = 0.0f; // 上一帧的时间
 
-glm::vec3 lightPos = glm::vec3(1.2f, 1.0f, 5.0f);
-glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
+glm::vec3 lightPos = glm::vec3(1.2f, 1.0f, -3.0f);
+glm::vec3 lightColor = glm::vec3(1, 0.5f, 0.5f);
 
 #pragma region 输入事件
 /// <summary>
@@ -272,8 +272,8 @@ int main()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	
-	unsigned int TexBufferA = LoadImageToGPU("Image/head.jpg", GL_RGB, GL_RGB, 0);
-	unsigned int TexBufferB = LoadImageToGPU("Image/container2.png", GL_RGBA, GL_RGBA, 1);
+	unsigned int diffuseMap = LoadImageToGPU("Image/container2.png", GL_RGBA, GL_RGBA, 0);
+	unsigned int specularMap = LoadImageToGPU("Image/container2_specular.png", GL_RGBA, GL_RGBA, 1);
 	#pragma endregion
 
 	while (!glfwWindowShouldClose(window))
@@ -296,7 +296,7 @@ int main()
 		glm::mat4 view = glm::mat4(1);
 		glm::mat4 projection = glm::mat4(1);
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-		//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+		
 		if (MainCamera != nullptr)
 		{
 			view = MainCamera->GetViewMatrix();
@@ -306,38 +306,72 @@ int main()
 		//Set Shader
 		shaderProgram->use();
 
+		shaderProgram->setInt("material.diffuse", 0);
+		shaderProgram->setInt("material.specular", 1);
+
 		//Set Texture
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, TexBufferA);
+		glBindTexture(GL_TEXTURE_2D, diffuseMap);
 		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, TexBufferB);
+		glBindTexture(GL_TEXTURE_2D, specularMap);
 
-		shaderProgram->setInt("texture1", 0);
-		shaderProgram->setInt("texture2", 1);
-		shaderProgram->setMatrix4fv("model", glm::value_ptr(model));
-		shaderProgram->setMatrix4fv("view", glm::value_ptr(view));
-		shaderProgram->setMatrix4fv("projection", glm::value_ptr(projection));
-	
-		shaderProgram->setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-		shaderProgram->setVec3("lightColor", lightColor);
-		shaderProgram->setVec3("lightPos", lightPos);
-		if (MainCamera != nullptr)
+		for (unsigned int i = 0; i < 10; i++)
 		{
-			shaderProgram->setVec3("viewPos", MainCamera->Position);
+			glm::mat4 model = glm::mat4(1);
+			model = glm::translate(model, cubePositions[i]);
+			float angle = 20.0f * i;
+			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+			shaderProgram->setMat4("model", glm::value_ptr(model));
+			shaderProgram->setMat4("view", glm::value_ptr(view));
+			shaderProgram->setMat4("projection", glm::value_ptr(projection));
+
+			shaderProgram->setVec3("objectColor", 1.0f, 0.5f, 0.31f);
+			shaderProgram->setVec3("lightColor", lightColor);
+			shaderProgram->setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+			shaderProgram->setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+			shaderProgram->setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+			shaderProgram->setFloat("material.shininess", 32.0f);
+
+			shaderProgram->setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+			shaderProgram->setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
+			shaderProgram->setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
+			shaderProgram->setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
+			shaderProgram->setVec3("dirLight.color", 1.0f, 0.9f, 0.8f);
+
+			shaderProgram->setVec3("pointLights[0].ambient", 0.2f, 0.2f, 0.2f);
+			shaderProgram->setVec3("pointLights[0].diffuse", 0.5f, 0.5f, 0.5f);
+			shaderProgram->setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
+			shaderProgram->setVec3("pointLights[0].position", lightPos);
+			shaderProgram->setFloat("pointLights[0].constant", 0.5f);
+			shaderProgram->setFloat("pointLights[0].linear", 0.09f);
+			shaderProgram->setFloat("pointLights[0].quadratic", 0.032f);
+			shaderProgram->setVec3("pointLights[0].color", lightColor);
+
+			shaderProgram->setVec3("spotLight.ambient", 0.2f, 0.2f, 0.2f);
+			shaderProgram->setVec3("spotLight.diffuse", 0.5f, 0.5f, 0.5f);
+			shaderProgram->setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
+			shaderProgram->setVec3("spotLight.color", 1.0f, 1.0f, 1.0f);
+			shaderProgram->setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+			shaderProgram->setFloat("spotLight.outerCutOff", glm::cos(glm::radians(17.5f)));
+			if (MainCamera != nullptr)
+			{
+				shaderProgram->setVec3("spotLight.position", MainCamera->Position);
+				shaderProgram->setVec3("spotLight.direction", MainCamera->Front);
+				shaderProgram->setVec3("viewPos", MainCamera->Position);
+			}
+			//Set Model
+			glBindVertexArray(VAO);
+			//Drawcall
+			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
-		//Set Model
-		glBindVertexArray(VAO);
-		//Drawcall
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-
-
+		
 		lightShaderProgram->use();
 		model = glm::mat4(1);
 		model = glm::translate(model, lightPos);
 		model = glm::scale(model, glm::vec3(0.2f));
-		lightShaderProgram->setMatrix4fv("model", glm::value_ptr(model));
-		lightShaderProgram->setMatrix4fv("view", glm::value_ptr(view));
-		lightShaderProgram->setMatrix4fv("projection", glm::value_ptr(projection));
+		lightShaderProgram->setMat4("model", glm::value_ptr(model));
+		lightShaderProgram->setMat4("view", glm::value_ptr(view));
+		lightShaderProgram->setMat4("projection", glm::value_ptr(projection));
 		lightShaderProgram->setVec3("lightColor", lightColor);
 		//Set Model
 		glBindVertexArray(LIGHT_VAO);
