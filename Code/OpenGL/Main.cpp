@@ -3,12 +3,20 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
+// stb图片加载库
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+// glm矩阵运算库
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+// assimp模型加载库
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 #include "Shader.h"
 #include "Camera.h"
@@ -335,7 +343,7 @@ int main()
 			shaderProgram->setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
 			shaderProgram->setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
 			shaderProgram->setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
-			shaderProgram->setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
+			shaderProgram->setVec3("dirLight.direction", 0.2f, 1.0f, 0.3f);
 			shaderProgram->setVec3("dirLight.color", 1.0f, 0.9f, 0.8f);
 
 			shaderProgram->setVec3("pointLights[0].ambient", 0.2f, 0.2f, 0.2f);
@@ -351,8 +359,8 @@ int main()
 			shaderProgram->setVec3("spotLight.diffuse", 0.5f, 0.5f, 0.5f);
 			shaderProgram->setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
 			shaderProgram->setVec3("spotLight.color", 1.0f, 1.0f, 1.0f);
-			shaderProgram->setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
-			shaderProgram->setFloat("spotLight.outerCutOff", glm::cos(glm::radians(17.5f)));
+			shaderProgram->setFloat("spotLight.cutOff", glm::cos(glm::radians(5.5f)));
+			shaderProgram->setFloat("spotLight.outerCutOff", glm::cos(glm::radians(7.5f)));
 			if (MainCamera != nullptr)
 			{
 				shaderProgram->setVec3("spotLight.position", MainCamera->Position);

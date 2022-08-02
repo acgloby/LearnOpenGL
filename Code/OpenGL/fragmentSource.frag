@@ -159,11 +159,12 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 viewDir)
 	//高光反射
 	float specularShininess = 32;
 	float spec = pow(max(dot(viewDir,reflectDir),0.0),specularShininess);
-	vec3 specular = light.specular * spec * vec3(specularTex)* light.color;
+	vec3 specular = light.specular * spec * vec3(specularTex) * light.color;
 
 	//聚光灯软化边缘
 	diffuse  *= intensity;
 	specular *= intensity;
+	ambient *= intensity;
 
 	return ambient + diffuse + specular; 
 }
