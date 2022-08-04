@@ -24,6 +24,12 @@
     <ClCompile Include="Camera.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -35,11 +41,19 @@
     <ClInclude Include="Camera.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="vertexSource.vert" />
     <Text Include="fragmentSource.frag" />
     <Text Include="lightFragment.frag" />
+    <Text Include="modelVertex.vert" />
+    <Text Include="modelFragment.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Image\awesomeface.png">
@@ -66,5 +80,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="lightVertex.vert" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

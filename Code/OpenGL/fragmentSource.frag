@@ -3,6 +3,8 @@ struct Material
 {
 	sampler2D diffuse;	//漫反射贴图
     sampler2D specular; //高光贴图
+    sampler2D normal; //法线贴图
+    sampler2D height; //高度贴图
 	float shininess;	//高光范围
 };
 
@@ -56,8 +58,8 @@ in vec2 TexCoords;
 in vec3 Normal;
 in vec3 WorldPos;
 
-uniform sampler2D texture1;
-uniform sampler2D texture2;
+uniform sampler2D texture_diffuse1;
+uniform sampler2D texture_specular1;
 uniform vec3 lightColor;
 uniform vec3 objectColor;
 uniform vec3 viewPos;
@@ -76,7 +78,6 @@ void main()
 		result += CalcPointLight(pointLights[i], worldNormal, viewDir);
 	}
 	result += CalcSpotLight(spotLight, worldNormal, viewDir);
-
 	FragColor = vec4(result, 1.0);
 }
 
