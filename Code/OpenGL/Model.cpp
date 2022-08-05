@@ -1,5 +1,6 @@
 #include "Model.h"
 
+//图片加载库
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
@@ -8,6 +9,7 @@ Model::Model(const char* path)
 	loadModel(path);
 }
 
+//DrawCall
 void Model::Draw(Shader shader)
 {
 	for (unsigned int i = 0; i < meshes.size(); i++)
@@ -16,6 +18,7 @@ void Model::Draw(Shader shader)
 	}
 }
 
+//加载模型
 void Model::loadModel(std::string path)
 {
 	Assimp::Importer importer;
@@ -30,6 +33,7 @@ void Model::loadModel(std::string path)
 	processNode(scene->mRootNode, scene);
 }
 
+//处理节点数据
 void Model::processNode(aiNode* node, const aiScene* scene)
 {
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
@@ -43,6 +47,7 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 	}
 }
 
+//处理Mesh数据
 Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
 	std::vector<Vertex> vertices;
